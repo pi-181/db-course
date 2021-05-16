@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    platform: "postgres"
+    url: '${DB_URL}'
+    username: '${DB_USERNAME}'
+    password: '${DB_PASSWORD}'
+  jpa:
+    database: "POSTGRESQL"
+    properties:
+      hibernate:
+        default_schema: '${DB_DEFAULT_SCHEMA:db_course}'
+        jdbc:
+          time_zone: '${JDBC_TIMEZONE:UTC}'
+    hibernate:
+      ddl-auto: update
+    show-sql: '${SHOW_SQL:false}'
+    generate-ddl: true

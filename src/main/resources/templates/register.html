@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+<div th:if="${param.wrong_pass}">Passwords dont match.</div>
+
+<form th:action="@{/register}" method="post">
+    <div><label>Username: <input type="text" name="username"/></label></div>
+    <div><label>Email: <input type="text" name="email"/></label></div>
+
+    <div><label>Password: <input type="password" name="password"/></label></div>
+    <div><label>Repeat password: <input type="password" name="repeatPassword"/></label></div>
+
+    <div><label>First name: <input type="text" name="firstName"/></label></div>
+    <div><label>Last name: <input type="text" name="lastName"/></label></div>
+
+    <div><input type="submit" value="Register"/></div>
+</form>
+
+</body>
+</html>

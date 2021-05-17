@@ -19,7 +19,6 @@ public class User {
     private String lastName;
 
     private boolean enabled;
-    private boolean tokenExpired;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -39,7 +38,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public User(Long id, String username, String email, String password, String firstName, String lastName, boolean enabled, boolean tokenExpired, Collection<Role> roles) {
+    public User(Long id, String username, String email, String password, String firstName, String lastName, boolean enabled, Collection<Role> roles) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -47,7 +46,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
-        this.tokenExpired = tokenExpired;
         this.roles = roles;
     }
 
@@ -105,14 +103,6 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public boolean isTokenExpired() {
-        return tokenExpired;
-    }
-
-    public void setTokenExpired(boolean tokenExpired) {
-        this.tokenExpired = tokenExpired;
     }
 
     public Collection<Role> getRoles() {

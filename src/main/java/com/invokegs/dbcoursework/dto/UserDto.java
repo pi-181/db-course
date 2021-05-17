@@ -30,16 +30,16 @@ public class UserDto {
             min = 5,
             max = 32
     )
-    private String repeatPassword;
+    private String confirmPassword;
 
     private String firstName;
     private String lastName;
 
-    public UserDto(String username, String email, String password, String repeatPassword, String firstName, String lastName) {
+    public UserDto(String username, String email, String password, String confirmPassword, String firstName, String lastName) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.repeatPassword = repeatPassword;
+        this.confirmPassword = confirmPassword;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -71,12 +71,12 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getRepeatPassword() {
-        return repeatPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {

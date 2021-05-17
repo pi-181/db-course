@@ -10,30 +10,30 @@
 <body>
 <form th:action="@{/register}" th:object="${user}" method="post">
     <div><label>
-        Username: <input type="text" name="username" th:field="*{username}"/>
+        Username: <input type="text" th:field="*{username}"/>
         <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</p>
     </label></div>
 
     <div><label>
-        Email: <input type="text" name="email" th:field="*{email}"/>
+        Email: <input type="text" th:field="*{email}"/>
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
     </label></div>
 
     <div><label>
-        Password: <input type="password" name="password" th:field="*{password}"/>
+        Password: <input type="password" th:field="*{password}"/>
         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
     </label></div>
     <div><label>
-        Repeat password: <input type="password" name="repeatPassword" th:field="*{repeatPassword}"/>
-        <p th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">Password Error</p>
+        Confirm password: <input type="password" th:field="*{confirmPassword}"/>
+        <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Password Error</p>
     </label></div>
 
     <div><label>
-        First name: <input type="text" name="firstName" th:field="*{firstName}"/>
+        First name: <input type="text" th:field="*{firstName}"/>
         <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>
     </label></div>
     <div><label>
-        Last name: <input type="text" name="lastName" th:field="*{lastName}"/>
+        Last name: <input type="text" th:field="*{lastName}"/>
         <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</p>
     </label></div>
 

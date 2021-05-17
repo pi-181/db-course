@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +37,8 @@ public class RegisterController {
     public String newUser(@Valid @ModelAttribute("user") UserDto user, BindingResult result, Model model) {
         model.addAttribute("user", user);
 
-        if (!Objects.equals(user.getRepeatPassword(), user.getPassword()))
-            result.rejectValue("repeatPassword","error.user.passwordNotMatch", "пароли не совпадают");
+        if (!Objects.equals(user.getConfirmPassword(), user.getPassword()))
+            result.rejectValue("confirmPassword","error.user.passwordNotMatch", "пароли не совпадают");
 
         if (result.hasErrors())
             return "register";

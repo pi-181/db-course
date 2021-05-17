@@ -7,10 +7,14 @@ import com.invokegs.dbcoursework.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @Controller("register")
@@ -25,16 +29,20 @@ public class RegisterController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index(UserDto user, Model model) {
+        model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping
-    public String newUser(UserDto user, Model model) {
-        if (!Objects.equals(user.getRepeatPassword(), user.getPassword())) {
-            model.addAttribute("wrong_pass", true);
+    public String newUser(@Valid @ModelAttribute("user") UserDto user, BindingResult result, Model model) {
+        model.addAttribute("user", user);
+
+        if (!Objects.equals(user.getRepeatPassword(), user.getPassword()))
+            result.rejectValue("repeatPassword","error.user.passwordNotMatch", "пароли не совпадают");
+
+        if (result.hasErrors())
             return "register";
-        }
 
         try {
             userService.registerUser(new User(

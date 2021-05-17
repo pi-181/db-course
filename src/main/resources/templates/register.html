@@ -8,18 +8,35 @@
     <title>Register</title>
 </head>
 <body>
+<form th:action="@{/register}" th:object="${user}" method="post">
+    <div><label>
+        Username: <input type="text" name="username" th:field="*{username}"/>
+        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</p>
+    </label></div>
 
-<div th:if="${param.wrong_pass}">Passwords dont match.</div>
+    <div><label>
+        Email: <input type="text" name="email" th:field="*{email}"/>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+    </label></div>
 
-<form th:action="@{/register}" method="post">
-    <div><label>Username: <input type="text" name="username"/></label></div>
-    <div><label>Email: <input type="text" name="email"/></label></div>
+    <div><label>
+        Password: <input type="password" name="password" th:field="*{password}"/>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+    </label></div>
+    <div><label>
+        Repeat password: <input type="password" name="repeatPassword" th:field="*{repeatPassword}"/>
+        <p th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">Password Error</p>
+        <p th:if="${wrong_pass}">пароли не совпадают</p>
+    </label></div>
 
-    <div><label>Password: <input type="password" name="password"/></label></div>
-    <div><label>Repeat password: <input type="password" name="repeatPassword"/></label></div>
-
-    <div><label>First name: <input type="text" name="firstName"/></label></div>
-    <div><label>Last name: <input type="text" name="lastName"/></label></div>
+    <div><label>
+        First name: <input type="text" name="firstName" th:field="*{firstName}"/>
+        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>
+    </label></div>
+    <div><label>
+        Last name: <input type="text" name="lastName" th:field="*{lastName}"/>
+        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</p>
+    </label></div>
 
     <div><input type="submit" value="Register"/></div>
 </form>

@@ -8,21 +8,19 @@ public class UserDto {
     @NotEmpty
     @Size(
             min = 4,
-            max = 25,
-            message = "Username name must be between 2 and 25 characters"
+            max = 25
     )
     private String username;
 
     @NotEmpty
-    @Size(min = 1, max = 50, message = "Email name must be between 1 and 50 characters")
-    @Email(message = "Not correct email")
+    @Size(min = 1, max = 50)
+    @Email
     private String email;
 
     @NotEmpty
     @Size(
             min = 5,
-            max = 32,
-            message = "Password name must be between 5 and 32 characters"
+            max = 32
     )
     private String password;
 
@@ -30,8 +28,7 @@ public class UserDto {
 
     @Size(
             min = 5,
-            max = 32,
-            message = "Password name must be between 5 and 32 characters"
+            max = 32
     )
     private String repeatPassword;
 

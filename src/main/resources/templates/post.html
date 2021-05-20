@@ -28,7 +28,7 @@
     <!--/*@thymesVar id="post" type="com.invokegs.dbcoursework.entity.Post"*/-->
     <center><p th:remove="tag" th:text="${post.title}"></p></center>
     <br><br>
-    <div th:id="'post-content-' + ${post.id}">
+    <div th:id="'post-content-' + ${post.id}" style="max-width: 98%">
         <label>
             <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
         </label>

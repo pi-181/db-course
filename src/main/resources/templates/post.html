@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <!--    <script type="text/javascript" th:src="@{/webjars/requirejs/2.3.6/require.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/editormd.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/marked.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/prettify.min.js}"></script>
+</head>
+<body>
+
+<h1>Posts here!</h1>
+
+<hr>
+<div th:each="post : ${posts}">
+    <!--/*@thymesVar id="post" type="com.invokegs.dbcoursework.entity.Post"*/-->
+    <center><p th:remove="tag" th:text="${post.title}"></p></center>
+    <br><br>
+    <div th:id="'post-content-' + ${post.id}">
+        <label>
+            <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
+        </label>
+    </div>
+    <br>
+    <center><span>Author: <p th:remove="tag" th:utext="${post.author.username}"></p></span></center>
+    <hr/>
+</div>
+<div>
+    <a th:href="@{post/create}">Create new post</a>
+</div>
+
+<script type="text/javascript" th:each="post : ${posts}">$(function () {
+    editormd.markdownToHTML("post-content-" + "[[${post.id}]]", {});
+})</script>
+</body>
+</html>

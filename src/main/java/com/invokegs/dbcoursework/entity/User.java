@@ -28,6 +28,9 @@ public class User {
     )
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "author")
+    private Collection<Post> posts;
+
     public User() { }
 
     public User(String username, String email, String password, String firstName, String lastName) {

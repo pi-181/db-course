@@ -1,6 +1,7 @@
 package com.invokegs.dbcoursework.service.impl;
 
 import com.invokegs.dbcoursework.entity.Role;
+import com.invokegs.dbcoursework.entity.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
 import com.invokegs.dbcoursework.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -30,14 +31,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null)
             throw new UsernameNotFoundException(username);
 
-        return new org.springframework.security.core.userdetails.User(
+        return new SecurityUserDetails(
                 user.getUsername(),
                 user.getPassword(),
                 user.isEnabled(),
                 true,
                 true,
                 true,
-                getAuthorities(user.getRoles())
+                getAuthorities(user.getRoles()),
+                user
         );
     }
 

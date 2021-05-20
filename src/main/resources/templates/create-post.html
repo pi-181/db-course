@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <!--    <script type="text/javascript" th:src="@{/webjars/requirejs/2.3.6/require.min.js}"></script>-->
+    <link rel="stylesheet" th:href="@{/webjars/editor.md/1.5.0/css/editormd.css}"/>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/editormd.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/marked.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/prettify.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/languages/en.js}"></script>
+</head>
+<body>
+
+<h1>Creating post!</h1>
+
+<form id="postForm" th:action="@{/post/create}" th:object="${postDto}" method="post">
+    <div><label>
+        Title: <input type="text" th:field="*{title}"/>
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</p>
+    </label></div>
+
+    <div id="post-editor">
+        <label>
+            <textarea style="display:none;" th:field="*{content}"></textarea>
+        </label>
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content error</p>
+    </div>
+
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+
+<script type="text/javascript">$(function () {
+    const path = "[[@{/webjars/editor.md/1.5.0/lib/}]]";
+    const editor = editormd("post-editor", {
+        path: path,
+        height: 320,
+        taskList: true,
+        emoji: true,
+        tex: true,
+        flowChart: true,
+        sequenceDiagram: true
+    });
+
+    $('#postForm').submit(function() {
+        $('#content')[0].value = editor.getMarkdown();
+        $("[name='post-editor-markdown-doc']")[0].remove();
+    });
+});</script>
+
+</body>
+</html>

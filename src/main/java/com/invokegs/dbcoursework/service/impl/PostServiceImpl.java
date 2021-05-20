@@ -4,11 +4,11 @@ import com.invokegs.dbcoursework.entity.Post;
 import com.invokegs.dbcoursework.repository.PostRepository;
 import com.invokegs.dbcoursework.service.PostService;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Controller("postService")
+@Service("postService")
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
 

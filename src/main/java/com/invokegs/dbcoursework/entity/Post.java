@@ -3,7 +3,10 @@ package com.invokegs.dbcoursework.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "post")
+@Table(name = "post", indexes = {
+        @Index(name = "title_index", columnList = "title"),
+        @Index(name = "author_index", columnList = "author_id")
+})
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

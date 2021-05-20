@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", indexes = {
+        @Index(name = "username_index", columnList = "username"),
+        @Index(name = "email_index", columnList = "email")
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +34,8 @@ public class User {
     @OneToMany(mappedBy = "author")
     private Collection<Post> posts;
 
-    public User() { }
+    public User() {
+    }
 
     public User(String username, String email, String password, String firstName, String lastName) {
         this.username = username;
@@ -106,6 +110,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Collection<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
     }
 
     public Collection<Role> getRoles() {

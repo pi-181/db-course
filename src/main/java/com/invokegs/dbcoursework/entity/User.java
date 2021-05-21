@@ -1,5 +1,7 @@
 package com.invokegs.dbcoursework.entity;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -22,6 +24,10 @@ public class User {
     private String lastName;
 
     private boolean enabled;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private PostCount postCount;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -110,6 +116,15 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Nullable
+    public PostCount getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(@Nullable PostCount postCount) {
+        this.postCount = postCount;
     }
 
     public Collection<Post> getPosts() {

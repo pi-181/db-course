@@ -5,12 +5,13 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title th:value="'Profile ' + ${user.username} + ''"></title>
 </head>
 <body>
 
 <h1>Profile</h1>
-<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+<h2 th:inline="text" th:value="'Hello ' + ${user.username} + '!'"></h2>
+<p th:text="'Posts count: ' + ${user.postCount == null ? 0 : user.postCount.posts}">
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>

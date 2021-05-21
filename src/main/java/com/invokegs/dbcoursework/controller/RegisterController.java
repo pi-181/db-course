@@ -8,11 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -34,7 +33,9 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String newUser(@Valid @ModelAttribute("user") UserDto user, BindingResult result, Model model) {
+    @Transactional
+    public String newUser(@Valid @ModelAttribute("user") UserDto user, BindingResult result,
+                          Model model, HttpServletRequest request) {
         model.addAttribute("user", user);
 
         if (!Objects.equals(user.getConfirmPassword(), user.getPassword()))
@@ -44,18 +45,30 @@ public class RegisterController {
             return "register";
 
         try {
-            userService.registerUser(new User(
+            final User u = new User(
                     user.getUsername(),
                     user.getEmail(),
                     encoder.encode(user.getPassword()),
                     user.getFirstName(),
                     user.getLastName()
-            ));
+            );
+            userService.registerUser(u);
+
+            final String url = request.getRequestURL().toString();
+            userService.sendRegistrationConfirmation(u, url + "/confirm/");
+
             return "redirect:/login";
         } catch (RegistrationInvalidDataException e) {
             model.addAttribute("email_used", e.isEmailInUse());
             model.addAttribute("username_used", e.isUsernameInUse());
             return "register";
         }
+    }
+
+    @GetMapping("confirm/{token}")
+    @Transactional
+    public String confirm(@Valid @PathVariable("token") String token, Model model) {
+        userService.confirm(token);
+        return "redirect:/home";
     }
 }

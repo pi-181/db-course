@@ -22,3 +22,15 @@ spring:
       ddl-auto: update
     show-sql: '${SHOW_SQL:false}'
     generate-ddl: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: '${MAIL_USERNAME}'
+    password: '${MAIL_PASSWORD}'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true

@@ -2,7 +2,6 @@ package com.invokegs.dbcoursework.controller;
 
 import com.invokegs.dbcoursework.entity.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
-import com.invokegs.dbcoursework.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("profile")
 @RequestMapping("/profile")
 public class ProfileController {
-    private final UserRepository userRepository;
-
-    public ProfileController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @GetMapping
     public String index(Model model) {
         Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();;

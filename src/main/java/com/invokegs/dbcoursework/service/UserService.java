@@ -5,4 +5,6 @@ import org.springframework.lang.NonNull;
 
 public interface UserService {
     void registerUser(@NonNull User user);
+    void sendRegistrationConfirmation(User user, String conformationUrl);
+    void confirm(String token);
 }

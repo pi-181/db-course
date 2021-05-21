@@ -1,20 +1,31 @@
 package com.invokegs.dbcoursework.service.impl;
 
+import com.invokegs.dbcoursework.entity.ConfirmToken;
 import com.invokegs.dbcoursework.entity.User;
 import com.invokegs.dbcoursework.exception.RegistrationInvalidDataException;
+import com.invokegs.dbcoursework.repository.ConfirmTokenRepository;
 import com.invokegs.dbcoursework.repository.UserRepository;
+import com.invokegs.dbcoursework.service.EmailSenderService;
 import com.invokegs.dbcoursework.service.UserService;
 import org.springframework.lang.NonNull;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
+    private final ConfirmTokenRepository tokenRepository;
+    private final EmailSenderService senderService;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, ConfirmTokenRepository tokenRepository,
+                           EmailSenderService senderService) {
         this.repository = repository;
+        this.tokenRepository = tokenRepository;
+        this.senderService = senderService;
     }
 
     @Override
@@ -29,7 +40,29 @@ public class UserServiceImpl implements UserService {
             );
         }
 
-        user.setEnabled(true); // todo: email verification
         repository.save(user);
+    }
+
+    @Override
+    public void sendRegistrationConfirmation(User user, String conformationUrl) {
+        final var token = UUID.randomUUID().toString();
+        tokenRepository.save(new ConfirmToken(token, user));
+
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(user.getEmail());
+        email.setSubject("Confirm Registration");
+        email.setText("To confirm registration click on link: " + conformationUrl + token);
+        senderService.sendEmail(email);
+    }
+
+    @Transactional
+    @Override
+    public void confirm(String token) {
+        final Optional<ConfirmToken> byToken = tokenRepository.findByToken(token);
+        final ConfirmToken confirmToken = byToken.orElseThrow(() -> new IllegalArgumentException("Token not found!"));
+        final User user = confirmToken.getUser();
+        user.setEnabled(true);
+        repository.save(user);
+        tokenRepository.delete(confirmToken);
     }
 }

@@ -100,6 +100,26 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                         FOR EACH ROW
                         EXECUTE FUNCTION handle_posts();
                 """).executeUpdate();
+        entityManager.createNativeQuery("""
+                CREATE OR REPLACE FUNCTION use_token(in ac_token varchar, inout activated bool = false)
+                LANGUAGE plpgsql
+                AS $BODY$
+                DECLARE
+                    _ac_user bigint;
+                BEGIN
+                    SELECT ct.user_id FROM schema_name.confirm_token ct WHERE ct.token = ac_token INTO _ac_user;
+
+                    IF _ac_user IS NULL THEN
+                        activated \\:= false;
+                        RETURN;
+                    END IF;
+
+                    UPDATE schema_name."user" u SET "enabled" = true WHERE u.id = _ac_user;
+                    DELETE FROM schema_name.confirm_token WHERE user_id = _ac_user;
+
+                    activated \\:= true;
+                END $BODY$;
+                """.replace("schema_name", schema)).executeUpdate();
 
 
         loaded = true;

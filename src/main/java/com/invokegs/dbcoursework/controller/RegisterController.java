@@ -39,7 +39,7 @@ public class RegisterController {
         model.addAttribute("user", user);
 
         if (!Objects.equals(user.getConfirmPassword(), user.getPassword()))
-            result.rejectValue("confirmPassword","error.user.passwordNotMatch", "пароли не совпадают");
+            result.rejectValue("confirmPassword", "error.user.passwordNotMatch", "пароли не совпадают");
 
         if (result.hasErrors())
             return "register";
@@ -68,7 +68,12 @@ public class RegisterController {
     @GetMapping("confirm/{token}")
     @Transactional
     public String confirm(@Valid @PathVariable("token") String token, Model model) {
-        userService.confirm(token);
+        final boolean confirm = userService.confirm(token);
+
+        if (!confirm) {
+            throw new IllegalArgumentException("Token '" + token + "' doesn't exist!");
+        }
+
         return "redirect:/home";
     }
 }

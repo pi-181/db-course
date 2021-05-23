@@ -23,6 +23,7 @@ public class Post {
     @ManyToOne(optional = false)
     private User author;
 
+    @Column(name = "creation_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
 

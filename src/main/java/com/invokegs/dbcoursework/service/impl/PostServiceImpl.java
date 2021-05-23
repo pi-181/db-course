@@ -24,6 +24,6 @@ public class PostServiceImpl implements PostService {
     @NonNull
     @Override
     public Collection<Post> getPosts() {
-        return repository.findAll();
+        return repository.findAllByOrderByCreationTimeDesc();
     }
 }

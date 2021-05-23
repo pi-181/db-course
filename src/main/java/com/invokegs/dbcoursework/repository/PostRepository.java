@@ -17,6 +17,9 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     Collection<Post> findAllByAuthor(User author);
 
     @NonNull
+    Collection<Post> findAllByOrderByCreationTimeDesc();
+
+    @NonNull
     @Override
     Collection<Post> findAll();
 }

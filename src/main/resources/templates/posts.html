@@ -3,16 +3,8 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
 >
-<head>
-    <meta charset="UTF-8">
-    <title>Posts</title>
-    <!--    <script type="text/javascript" th:src="@{/webjars/requirejs/2.3.6/require.min.js}"></script>-->
-    <link rel="stylesheet" th:href="@{/webjars/editor.md/1.5.0/css/editormd.css}"/>
-
-    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.slim.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/editormd.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/marked.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/prettify.min.js}"></script>
+<head th:replace="fragments/markdown-head::head(~{::title}, ~{}, ~{})">
+    <title>Post : List</title>
 </head>
 <body>
 

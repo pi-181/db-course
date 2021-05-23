@@ -10,7 +10,10 @@
 <body>
 
 <h1>Profile</h1>
-<h2 th:inline="text" th:value="'Hello ' + ${user.username} + '!'"></h2>
+<h2 th:inline="text" th:text="'Hello ' + ${user.username} + '!'"></h2>
+<div id="roles" th:text="${'Roles: ' + #strings.listJoin(roles, ', ')}">
+</div>
+
 <p th:text="'Posts count: ' + ${user.postCount == null ? 0 : user.postCount.posts}">
 
 <form th:action="@{/logout}" method="post">

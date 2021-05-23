@@ -35,7 +35,10 @@
         </label>
     </div>
     <br>
-    <center><span>Author: <p th:remove="tag" th:utext="${post.author.username}"></p></span></center>
+    <center><span>
+        Author: <p th:remove="tag" th:utext="${post.author.username}"></p>
+        <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
+    </span></center>
     <hr/>
 </div>
 

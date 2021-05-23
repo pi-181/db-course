@@ -1,11 +1,13 @@
 package com.invokegs.dbcoursework.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "post", indexes = {
         @Index(name = "title_index", columnList = "title"),
-        @Index(name = "author_index", columnList = "author_id")
+        @Index(name = "author_index", columnList = "author_id"),
+        @Index(name = "creation_time_index", columnList = "creation_time")
 })
 public class Post {
     @Id
@@ -21,6 +23,9 @@ public class Post {
     @ManyToOne(optional = false)
     private User author;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationTime;
+
     public Post() {
     }
 
@@ -28,13 +33,15 @@ public class Post {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.creationTime = new Date();
     }
 
-    public Post(Long id, String title, String content, User author) {
+    public Post(Long id, String title, String content, User author, Date creationTime) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
+        this.creationTime = creationTime;
     }
 
     public Long getId() {
@@ -67,5 +74,13 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
     }
 }

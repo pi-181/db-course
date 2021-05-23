@@ -4,6 +4,7 @@ import com.invokegs.dbcoursework.entity.ConfirmToken;
 import com.invokegs.dbcoursework.entity.User;
 import com.invokegs.dbcoursework.exception.RegistrationInvalidDataException;
 import com.invokegs.dbcoursework.repository.ConfirmTokenRepository;
+import com.invokegs.dbcoursework.repository.RoleRepository;
 import com.invokegs.dbcoursework.repository.UserRepository;
 import com.invokegs.dbcoursework.service.EmailSenderService;
 import com.invokegs.dbcoursework.service.UserService;
@@ -12,18 +13,21 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final ConfirmTokenRepository tokenRepository;
+    private final RoleRepository roleRepository;
     private final EmailSenderService senderService;
 
     public UserServiceImpl(UserRepository repository, ConfirmTokenRepository tokenRepository,
-                           EmailSenderService senderService) {
+                           RoleRepository roleRepository, EmailSenderService senderService) {
         this.repository = repository;
         this.tokenRepository = tokenRepository;
+        this.roleRepository = roleRepository;
         this.senderService = senderService;
     }
 
@@ -39,6 +43,7 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         repository.save(user);
     }
 

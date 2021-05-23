@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProfileController {
     @GetMapping
     public String index(Model model) {
-        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();;
-        if (!(details instanceof SecurityUserDetails y)) {
-            return "redirect:/login";
-        }
-
-        return "redirect:/profile/" + y.getUser().getId();
+        final SecurityUserDetails details = SecurityUserDetails.getSessionUserDetails().orElseThrow();
+        return "redirect:/profile/" + details.getUser().getId();
     }
 
     @GetMapping("{userId}")

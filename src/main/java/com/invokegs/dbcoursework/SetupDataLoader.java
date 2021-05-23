@@ -36,12 +36,17 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (loaded)
             return;
 
-        Privilege readPrivilege = privileges.createOrGetPrivilege("READ_PRIVILEGE");
-        Privilege writePrivilege = privileges.createOrGetPrivilege("WRITE_PRIVILEGE");
+        Privilege createPrivilege = privileges.createOrGetPrivilege("CREATE_PRIVILEGE");
+        Privilege editPrivilege = privileges.createOrGetPrivilege("EDIT_PRIVILEGE");
+        Privilege deletePrivilege = privileges.createOrGetPrivilege("DELETE_PRIVILEGE");
 
-        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
-        roles.createOrGetRole("ROLE_ADMIN", adminPrivileges);
-        roles.createOrGetRole("ROLE_USER", Arrays.asList(readPrivilege));
+        Privilege editAnyPrivilege = privileges.createOrGetPrivilege("EDIT_ANY_PRIVILEGE");
+        Privilege deleteAnyPrivilege = privileges.createOrGetPrivilege("DELETE_ANY_PRIVILEGE");
+
+        roles.createOrGetRole("ROLE_ADMIN",
+                Arrays.asList(createPrivilege, editAnyPrivilege, deleteAnyPrivilege));
+        roles.createOrGetRole("ROLE_USER",
+                Arrays.asList(createPrivilege, editPrivilege, deletePrivilege));
 
         entityManager.createNativeQuery("SET SCHEMA '" + schema + "'").executeUpdate();
         entityManager.createNativeQuery("""

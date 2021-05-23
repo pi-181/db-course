@@ -73,6 +73,10 @@ public class Post {
         return author;
     }
 
+    public boolean isAuthor(User user) {
+        return getAuthor().getId().equals(user.getId());
+    }
+
     public void setAuthor(User author) {
         this.author = author;
     }

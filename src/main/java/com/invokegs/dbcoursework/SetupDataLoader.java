@@ -73,6 +73,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                             UPDATE SET posts = schema_name.user_post_count.posts - 1 WHERE schema_name.user_post_count.user_id = OLD.author_id;
                         RETURN NEW;
                     END IF;
+                    
+                    RETURN NEW;
                     END;
                 $$;
                 """.replace("schema_name", schema)).executeUpdate();

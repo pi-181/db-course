@@ -10,6 +10,9 @@ import java.util.Collection;
 
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
+    @Override
+    void deleteById(@NonNull Long id);
+
     @NonNull
     Collection<Post> findAllByTitle(String title);
 

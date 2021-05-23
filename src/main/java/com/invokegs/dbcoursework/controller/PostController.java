@@ -8,12 +8,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/post")
@@ -27,7 +25,7 @@ public class PostController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("posts", postService.getPosts());
-        return "post";
+        return "posts";
     }
 
     @GetMapping("create")
@@ -39,17 +37,53 @@ public class PostController {
     @PostMapping("create")
     public String create(@Valid @ModelAttribute("postDto") PostDto dto, BindingResult result, Model model) {
         model.addAttribute("postDto", dto);
-
         if (result.hasErrors()) {
             return "create-post";
         }
 
-        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();;
+        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(details instanceof SecurityUserDetails y)) {
             return "create-post";
         }
 
-        postService.createPost(new Post(dto.getTitle(), dto.getContent(), y.getUser()));
+        postService.savePost(new Post(dto.getTitle(), dto.getContent(), y.getUser()));
         return "redirect:/post";
+    }
+
+    @GetMapping("{postId}")
+    public String post(@PathVariable(value = "postId") Long postId, Model model) {
+        model.addAttribute("id", postId);
+        model.addAttribute("post", postService.getPost(postId).get());
+        return "post";
+    }
+
+    @GetMapping("edit/{postId}")
+    public String edit(@PathVariable(value = "postId") Long postId, Model model) {
+        model.addAttribute("id", postId);
+        model.addAttribute("postDto", new PostDto(postService.getPost(postId).get()));
+        return "post-edit";
+    }
+
+    @PostMapping("edit/{postId}")
+    public String editPost(@PathVariable(value = "postId") Long postId, @Valid @ModelAttribute("postDto") PostDto postDto,
+                           BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("id", postId);
+            model.addAttribute("postDto", postDto);
+            return "post-edit";
+        }
+
+        final Post post = postService.getPost(postId).get();
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+
+        postService.savePost(post);
+        return "redirect:/post/" + postId;
+    }
+
+    @GetMapping("delete/{postId}")
+    public String delete(@PathVariable(value = "postId") Long postId) {
+        postService.deletePost(postId);
+        return "redirect:/post/";
     }
 }

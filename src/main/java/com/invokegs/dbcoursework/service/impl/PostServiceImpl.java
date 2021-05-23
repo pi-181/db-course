@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
@@ -17,7 +18,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void createPost(@NonNull Post post) {
+    public void savePost(@NonNull Post post) {
         repository.save(post);
     }
 
@@ -25,5 +26,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public Collection<Post> getPosts() {
         return repository.findAllByOrderByCreationTimeDesc();
+    }
+
+    @Override
+    public Optional<Post> getPost(Long postId) {
+        return repository.findById(postId);
+    }
+
+    @Override
+    public void deletePost(Long postId) {
+        repository.deleteById(postId);
     }
 }

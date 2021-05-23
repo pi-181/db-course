@@ -5,7 +5,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Post</title>
+    <title>Posts</title>
     <!--    <script type="text/javascript" th:src="@{/webjars/requirejs/2.3.6/require.min.js}"></script>-->
     <link rel="stylesheet" th:href="@{/webjars/editor.md/1.5.0/css/editormd.css}"/>
 
@@ -17,30 +17,33 @@
 <body>
 
 <div>
-    Back to <a th:href="@{/post}">posts</a> <br>
+    <a th:href="@{/post/create}">Create new post</a><br>
+    Open <a th:href="@{/top/posts}">top writers</a> <br>
+    Open <a th:href="@{/profile}">profile</a> <br>
 </div>
 
-<h1>Post</h1>
+<h1>Posts here!</h1>
 
 <hr>
-<center><p th:remove="tag" th:text="${post.title}"></p></center>
-<br><br>
-<div th:id="'post-content'" style="max-width: 98%">
-    <label>
-        <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
-    </label>
-</div>
-<br>
-<center><span>
+<div th:each="post : ${posts}">
+    <!--/*@thymesVar id="post" type="com.invokegs.dbcoursework.entity.Post"*/-->
+    <center><a th:href="${'/post/' + post.id}"  th:text="${post.title}"></a></center>
+    <br><br>
+    <div th:id="'post-content-' + ${post.id}" style="max-width: 98%">
+        <label>
+            <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
+        </label>
+    </div>
+    <br>
+    <center><span>
         Author: <p th:remove="tag" th:utext="${post.author.username}"></p>
         <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
     </span></center>
-<hr/>
-<a th:href="${'/post/edit/' + id}">Edit</a>
-<a th:href="${'/post/delete/' + id}">Delete</a>
+    <hr/>
+</div>
 
-<script type="text/javascript">$(function () {
-    editormd.markdownToHTML("post-content", {});
+<script type="text/javascript" th:each="post : ${posts}">$(function () {
+    editormd.markdownToHTML("post-content-" + "[[${post.id}]]", {});
 })</script>
 </body>
 </html>

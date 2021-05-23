@@ -1,5 +1,7 @@
 package com.invokegs.dbcoursework.dto;
 
+import com.invokegs.dbcoursework.entity.Post;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -18,6 +20,11 @@ public class PostDto {
     public PostDto(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public PostDto(Post post) {
+        this.title = post.getTitle();
+        this.content = post.getContent();
     }
 
     public String getTitle() {

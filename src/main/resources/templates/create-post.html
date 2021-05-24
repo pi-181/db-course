@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
 >
-<head th:replace="fragments/markdown-head::head(~{::title}, ~{}, ~{})">
+<head th:replace="fragments/markdown::head(~{::title}, ~{}, ~{})">
     <title>Post : Create</title>
 </head>
 
@@ -27,26 +27,6 @@
 </form>
 Open <a th:href="@{/post}">posts</a>
 
-<script type="text/javascript">$(function () {
-    const path = "[[@{/webjars/editor.md/1.5.0/lib/}]]";
-    const editor = editormd("post-editor", {
-        path: path,
-        height: 320,
-        taskList: true,
-        emoji: true,
-        tex: true,
-        flowChart: true,
-        sequenceDiagram: true
-    });
-
-    let mdSource = $("#content")[0];
-    $("[name='post-editor-markdown-doc']")[0].value = mdSource.value;
-
-    $('#postForm').submit(function() {
-        $('#content')[0].value = editor.getMarkdown();
-        $("[name='post-editor-markdown-doc']")[0].remove();
-    });
-});</script>
-
+<script th:replace="fragments/markdown::editor('post-editor', 'content', 'postForm')"></script>
 </body>
 </html>

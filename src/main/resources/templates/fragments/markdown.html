@@ -2,19 +2,19 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head th:fragment="head(title, links, scripts)"
       th:replace="/fragments/head::head(${title}, ~{::link}, ~{::script})">
-    <link rel="stylesheet" th:href="@{/webjars/editor.md/1.5.0/css/editormd.css}"/>
+    <link rel="stylesheet" th:href="@{/web/editor.md/1.5.0/css/editormd.css}"/>
     <th:block th:replace="${links}"/>
 
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/editormd.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/marked.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/lib/prettify.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/editor.md/1.5.0/languages/en.js}"></script>
+    <script type="text/javascript" th:src="@{/web/editor.md/1.5.0/editormd.min.js}"></script>
+    <script type="text/javascript" th:src="@{/web/editor.md/1.5.0/lib/marked.min.js}"></script>
+    <script type="text/javascript" th:src="@{/web/editor.md/1.5.0/lib/prettify.min.js}"></script>
+    <script type="text/javascript" th:src="@{/web/editor.md/1.5.0/languages/en.js}"></script>
     <th:block th:replace="${scripts}"/>
 </head>
 
 <script type="text/javascript" th:fragment="editor(editor_block, content_field_id, form_id)">
     $(function () {
-        const path = "[[@{/webjars/editor.md/1.5.0/lib/}]]";
+        const path = "[[@{/web/editor.md/1.5.0/lib/}]]";
         const editor = editormd("[[${editor_block}]]", {
             path: path,
             height: 320,

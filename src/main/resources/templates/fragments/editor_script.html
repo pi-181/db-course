@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<body>
+<script type="text/javascript" th:fragment="editor(editor_block, content_field_id, form_id)">
+  $(function () {
+    const path = "[[@{/web/editor.md/1.5.0/lib/}]]";
+    const editor = editormd("[[${editor_block}]]", {
+      path: path,
+      height: 320,
+      taskList: true,
+      emoji: true,
+      tex: true,
+      flowChart: true,
+      sequenceDiagram: true
+    });
+
+    let mdSource = $("#" + "[[${content_field_id}]]")[0];
+    $("[name='[[${editor_block}]]-markdown-doc']")[0].value = mdSource.value;
+
+    $('#' + "[[${form_id}]]").submit(function () {
+      $('#' + "[[${content_field_id}]]")[0].value = editor.getMarkdown();
+      $("[name='[[${editor_block}]]-markdown-doc']")[0].remove();
+    });
+  });
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
 >
-<head th:replace="/fragments/markdown::head(~{::title}, ~{}, ~{})">
+<head th:replace="/fragments/editor_header::head(~{::title}, ~{}, ~{})">
     <title>Post : Create</title>
 </head>
 
@@ -27,6 +27,6 @@
 </form>
 Open <a th:href="@{/post}">posts</a>
 
-<script th:replace="/fragments/markdown::editor('post-editor', 'content', 'postForm')"></script>
+<script th:replace="/fragments/editor_script::editor('post-editor', 'content', 'postForm')"></script>
 </body>
 </html>

@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation group: 'org.webjars', name: 'bootstrap', version: '5.0.1'
     implementation group: 'org.webjars', name: 'requirejs', version: '2.3.6'
     implementation group: 'org.webjars', name: 'jquery', version: '3.6.0'
     implementation group: 'org.webjars.bower', name: 'editor.md', version: '1.5.0'

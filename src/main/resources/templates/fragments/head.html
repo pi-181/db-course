@@ -3,8 +3,10 @@
 <head th:fragment="head(title, links, scripts)">
     <meta charset="UTF-8">
     <title th:replace="${title}">Page Title</title>
+    <link rel="stylesheet" th:href="@{/web/bootstrap/5.0.1/css/bootstrap.min.css}"/>
     <th:block th:replace="${links}"/>
     <script type="text/javascript" th:src="@{/web/jquery/3.6.0/jquery.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/web/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
     <th:block th:replace="${scripts}"/>
 </head>
 </html>

@@ -2,20 +2,32 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head th:replace="/fragments/head::head(~{::title}, ~{}, ~{})">
+>
+<head th:replace="/fragments/head::head(~{::title}, ~{::#insertion}, ~{})">
     <title>Log in</title>
+    <th:block th:remove="tag" id="insertion">
+        <link rel="stylesheet" th:href="@{/webs/styles/auth.css}">
+    </th:block>
 </head>
-<body>
+<body class="vsc-initialized">
+<div class="login-form">
+    <form th:action="@{/login}" method="post">
+        <h2 class="text-center">Log in</h2>
 
-<div th:if="${param.error}">Invalid username and password.</div>
-<div th:if="${param.logout}">You have been logged out.</div>
+        <div class="form-group">
+            <input type="text" name="username" class="form-control mb-1" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control mb-1" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
 
-<form th:action="@{/login}" method="post">
-    <div><label>User Name: <input type="text" name="username"/></label></div>
-    <div><label>Password: <input type="password" name="password"/></label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<a th:href="@{/register}">Create account</a>
+        <div th:if="${param.error}">Invalid username and password.</div>
+        <div th:if="${param.logout}">You have been logged out.</div>
+    </form>
+    <a th:href="@{/register}">Create account</a>
+</div>
 </body>
 </html>

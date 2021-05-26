@@ -3,29 +3,67 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
 >
-<head th:replace="/fragments/head::head(~{::title}, ~{}, ~{})">
-  <title>Post : Months</title>
+<head th:replace="/fragments/head::head(~{::title}, ~{}, ~{::#head_script_insertion})">
+    <title>Post : Months</title>
+    <th:block th:remove="tag" id="head_script_insertion">
+        <script type="text/javascript" th:src="@{/web/chart.js/3.3.0/dist/chart.min.js}"></script>
+    </th:block>
 </head>
 <body>
 <div th:replace="/fragments/navbar::navbar"></div>
 <div class="container">
-  <h1>Stats by months</h1>
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Month</th>
-      <th scope="col">Count</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="node, stat : ${months}">
-      <th th:text="${stat.count}" scope="row"></th>
-      <td th:text="${node.getMonth()}"></td>
-      <td th:text="${node.getCount()}"></td>
-    </tr>
-    </tbody>
-  </table>
+    <h1>Stats by months</h1>
+
+    <div>
+        <canvas id="monthChart"></canvas>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Month</th>
+            <th scope="col">Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="node, stat : ${months}">
+            <th th:text="${stat.count}" scope="row"></th>
+            <td th:text="${node.getMonth()}"></td>
+            <td th:text="${node.getCount()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <script th:inline="javascript">
+        $(function() {
+            const labels = [
+                /*[# th:each="node : ${months}"]*/
+                /*[[${node.getMonth()}]]*/,
+                /*[/]*/
+            ]
+            const values = [
+                /*[# th:each="node : ${months}"]*/
+                /*[[${node.getCount()}]]*/,
+                /*[/]*/
+            ]
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Posts created',
+                    data: values,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
+            const ctx = document.getElementById('monthChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data,
+                options: {}
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

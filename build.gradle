@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     // frontend dependencies
+    implementation group: 'org.webjars.npm', name: 'chart.js', version: '3.3.0'
     implementation group: 'org.webjars.npm', name: 'github-com-mdbootstrap-mdb-ui-kit', version: '3.6.0'
     implementation group: 'org.webjars', name: 'font-awesome', version: '5.15.2'
     implementation group: 'org.webjars', name: 'bootstrap', version: '5.0.1'

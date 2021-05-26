@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -127,7 +126,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                     activated \\:= true;
                 END $BODY$;
                 """.replace("schema_name", schema)).executeUpdate();
-
+        entityManager.createNativeQuery("""
+                CREATE OR REPLACE VIEW schema_name.posts_by_months AS
+                SELECT to_char(p.creation_time, 'YYYY.MM') as month, count(p.id)
+                FROM schema_name.post p
+                WHERE p.creation_time > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year'
+                GROUP BY 1
+                ORDER BY month
+                """.replace("schema_name", schema)).executeUpdate();
 
         loaded = true;
     }

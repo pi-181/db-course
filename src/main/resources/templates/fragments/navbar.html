@@ -22,7 +22,10 @@
                     <a class="nav-link" th:href="@{/posts}">Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/top/posts}">Authors</a>
+                    <a class="nav-link" th:href="@{/stats/author-top}">Authors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/stats/posts-months}">Months</a>
                 </li>
             </ul>
             <div sec:authorize="isAuthenticated()">

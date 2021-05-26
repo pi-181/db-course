@@ -15,7 +15,7 @@
     <div class="card mt-1">
         <div class="card-header"><a th:href="${'/post/' + post.id}" th:text="${post.title}"></a></div>
         <div class="card-body" th:id="'post-content'">
-            <label><textarea style="display:none;" th:text="${post.content}" hidden="hidden"></textarea></label>
+            <textarea style="display:none;" th:text="${post.content}" hidden="hidden"></textarea>
         </div>
         <div class="card-footer text-muted">
             Author: <a th:href="${'/profile/' + post.author.id}" th:text="${post.author.username}"></a>

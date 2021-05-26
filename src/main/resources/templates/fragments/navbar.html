@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">PortalNews</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/posts}">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/top/posts}">Authors</a>
+                </li>
+            </ul>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-success" th:href="@{/profile}">Profile</a>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <a class="btn btn-danger" type="submit">Sign Out</a>
+                </form>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a class="btn btn-success" th:href="@{/login}">Login</a>
+                <a class="btn btn-primary" th:href="@{/register}">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

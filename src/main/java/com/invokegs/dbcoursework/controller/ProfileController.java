@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Controller("profile")
@@ -23,7 +24,10 @@ public class ProfileController {
     @GetMapping("{userId}")
     public String userProfile(@PathVariable(value = "userId") User user, Model model) {
         model.addAttribute("user", user);
-        model.addAttribute("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+        model.addAttribute("role", user.getRoles().stream()
+                .max(Comparator.comparingInt(Role::getPriority))
+                .map(Role::getDisplayName)
+                .orElse("Unknown"));
         return "profile";
     }
 }

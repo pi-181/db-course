@@ -9,6 +9,8 @@
         <link rel="stylesheet" th:href="@{/webs/styles/auth.css}">
     </th:block>
 </head>
+<div th:replace="/fragments/navbar::navbar"></div>
+
 <body class="vsc-initialized">
 <div class="login-form">
     <form th:action="@{/login}" method="post">

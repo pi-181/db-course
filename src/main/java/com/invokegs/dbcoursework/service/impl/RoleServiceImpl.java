@@ -21,11 +21,11 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @NonNull
     @Override
-    public Role createOrGetRole(String name, Collection<Privilege> privileges) {
+    public Role createOrGetRole(String name, String displayName, int priority, Collection<Privilege> privileges) {
         var role = repository.findByName(name);
 
         if (role == null) {
-            role = new Role(name);
+            role = new Role(name, displayName, priority);
             role.setPrivileges(privileges);
             repository.save(role);
         }

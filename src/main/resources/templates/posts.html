@@ -7,31 +7,24 @@
     <title>Post : List</title>
 </head>
 <body>
+<div th:replace="/fragments/navbar::navbar"></div>
 
-<div>
-    <a th:href="@{/post/create}">Create new post</a><br>
-    Open <a th:href="@{/top/posts}">top writers</a> <br>
-    Open <a th:href="@{/profile}">profile</a> <br>
-</div>
-
-<h1>Posts here!</h1>
-
-<hr>
-<div th:each="post : ${posts}">
-    <!--/*@thymesVar id="post" type="com.invokegs.dbcoursework.entity.Post"*/-->
-    <center><a th:href="${'/post/' + post.id}"  th:text="${post.title}"></a></center>
-    <br><br>
-    <div th:id="'post-content-' + ${post.id}" style="max-width: 98%">
-        <label>
-            <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
-        </label>
+<div class="container">
+    <div class="float-end mt-2">
+        <a class="btn btn-primary" th:href="@{/post-create}">Create new post</a><br>
     </div>
-    <br>
-    <center><span>
-        Author: <p th:remove="tag" th:utext="${post.author.username}"></p>
-        <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
-    </span></center>
-    <hr/>
+    <h1>Posts here!</h1>
+
+    <div class="card mt-2" th:each="post : ${posts}">
+        <div class="card-header"><a th:href="${'/post/' + post.id}" th:text="${post.title}"></a></div>
+        <div class="card-body" th:id="'post-content-' + ${post.id}">
+            <label><textarea style="display:none;" th:text="${post.content}" hidden="hidden"></textarea></label>
+        </div>
+        <div class="card-footer text-muted">
+            Author: <a th:href="${'/profile/' + post.author.id}" th:text="${post.author.username}"></a>
+            <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" th:each="post : ${posts}">$(function () {

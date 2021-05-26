@@ -8,5 +8,5 @@ import java.util.Collection;
 
 public interface RoleService {
     @NonNull
-    Role createOrGetRole(String name, Collection<Privilege> privileges);
+    Role createOrGetRole(String name, String displayName, int priority, Collection<Privilege> privileges);
 }

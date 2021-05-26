@@ -7,18 +7,38 @@
     <title>Profile</title>
 </head>
 <body>
+<div th:replace="/fragments/navbar::navbar"></div>
+<div class="container">
 
-<h1>Profile</h1>
-<h2 th:inline="text" th:text="'Hello ' + ${user.username} + '!'"></h2>
-<div id="roles" th:text="${'Roles: ' + #strings.listJoin(roles, ', ')}">
+    <div class="text-center card-box">
+        <div class="member-card pt-2 pb-2">
+            <div class="thumb-lg member-thumb mx-auto">
+                <img th:src="@{/webs/img/noavatar.png}" class="rounded-circle img-thumbnail" alt="profile-image"
+                     style="width: 200px; height: 200px;">
+            </div>
+            <div class="">
+                <h4 th:text="${user.firstName} + ' ' + ${user.lastName}"></h4>
+                <p class="text-muted" th:text="'@' + ${user.username}"></p>
+                <p class="text-muted" th:text="${'Role: ' + role}"></p>
+            </div>
+
+            <div class="mt-4">
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="mt-3">
+                            <h4 th:text="${user.postCount == null ? 0 : user.postCount.posts}"></h4>
+                            <p class="mb-0 text-muted">Created posts</p>
+                        </div>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p th:text="'Posts count: ' + ${user.postCount == null ? 0 : user.postCount.posts}">
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
 
-Open <a th:href="@{/post}">posts</a>
 </body>
 </html>

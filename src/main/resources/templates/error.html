@@ -7,7 +7,10 @@
     <title>Error</title>
 </head>
 <body>
-Back to <a th:href="@{/home}">home</a>
-<p th:text="${message}"></p>
+<div th:replace="/fragments/navbar::navbar"></div>
+
+<div style="width: 340px; margin: 50px auto;">
+    <p th:text="${message}"></p>
+</div>
 </body>
 </html>

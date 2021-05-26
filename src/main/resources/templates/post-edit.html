@@ -7,26 +7,22 @@
     <title>Post : Edit</title>
 </head>
 <body>
+<div th:replace="/fragments/navbar::navbar"></div>
+<div class="container">
+    <h1>Editing</h1>
+    <form id="postForm" th:action="${'/post-edit/' + id}" th:object="${postDto}" method="post">
+        <label for="titleInput" class="form-label">Title</label>
+        <input type="text" class="form-control" id="titleInput" aria-describedby="titleInputHelp" th:field="*{title}">
+        <div id="titleInputHelp" class="form-text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
-<h1>Editing</h1>
+        <div id="post-editor" class="mt-2">
+            <label><textarea style="display:none;" aria-describedby="contentInputHelp" th:field="*{content}"></textarea></label>
+        </div>
+        <p id="contentInputHelp" class="form-text" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
 
-<form id="postForm" th:action="${'/post/edit/' + id}" th:object="${postDto}" method="post">
-    <div><label>
-        Title: <input type="text" th:field="*{title}"/>
-        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</p>
-    </label></div>
-
-    <div id="post-editor">
-        <label>
-            <textarea style="display:none;" th:field="*{content}"></textarea>
-        </label>
-        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content error</p>
-    </div>
-
-    <div><input type="submit" value="Submit"/></div>
-</form>
-Open <a th:href="@{/post}">posts</a>
-
+        <div><button class="btn btn-primary" type="submit">Submit</button></div>
+    </form>
+</div>
 <script th:replace="/fragments/editor_script::editor('post-editor', 'content', 'postForm')"></script>
 </body>
 </html>

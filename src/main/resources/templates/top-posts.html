@@ -7,19 +7,25 @@
     <title>Post : Author Top</title>
 </head>
 <body>
-
-<div>
-    Open <a th:href="@{/post}">posts</a><br>
-    Open <a th:href="@{/profile}">profile</a> <br>
-    Open <a th:href="@{/home}">home</a> <br>
+<div th:replace="/fragments/navbar::navbar"></div>
+<div class="container">
+    <h1>Top of writers</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Author</th>
+            <th scope="col">Posts</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="node, stat : ${top}">
+            <th th:text="${stat.count}" scope="row"></th>
+            <td th:text="${node.user.username}"></td>
+            <td th:text="${node.posts}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-<h1>Top of writers</h1>
-
-<hr>
-<div th:each="node : ${top}">
-    <p th:text="${node.user.username} + ' created ' + ${node.posts} + 'posts'"></p>
-</div>
-
 </body>
 </html>

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/post")
 public class PostController {
     private final PostService postService;
 
@@ -22,13 +21,13 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping
+    @GetMapping("posts")
     public String index(Model model) {
         model.addAttribute("posts", postService.getPosts());
         return "posts";
     }
 
-    @GetMapping("create")
+    @GetMapping("post-create")
     public String create(PostDto dto, Model model) {
         final SecurityUserDetails details = SecurityUserDetails.getSessionUserDetails().orElseThrow();
         if (!details.hasAuthority("CREATE_PRIVILEGE")) {
@@ -41,7 +40,7 @@ public class PostController {
         return "create-post";
     }
 
-    @PostMapping("create")
+    @PostMapping("post-create")
     public String create(@Valid @ModelAttribute("postDto") PostDto dto, BindingResult result, Model model) {
         final SecurityUserDetails details = SecurityUserDetails.getSessionUserDetails().orElseThrow();
         if (!details.hasAuthority("CREATE_PRIVILEGE")) {
@@ -56,17 +55,17 @@ public class PostController {
         }
 
         postService.savePost(new Post(dto.getTitle(), dto.getContent(), details.getUser()));
-        return "redirect:/post";
+        return "redirect:/posts/";
     }
 
-    @GetMapping("{postId}")
+    @GetMapping("post/{postId}")
     public String post(@PathVariable(value = "postId") Long postId, Model model) {
         model.addAttribute("id", postId);
         model.addAttribute("post", postService.getPost(postId).get());
         return "post";
     }
 
-    @GetMapping("edit/{postId}")
+    @GetMapping("post-edit/{postId}")
     public String edit(@PathVariable(value = "postId") Long postId, Model model) {
         final Post post = postService.getPost(postId).orElseThrow();
 
@@ -82,7 +81,7 @@ public class PostController {
         return "post-edit";
     }
 
-    @PostMapping("edit/{postId}")
+    @PostMapping("post-edit/{postId}")
     public String editPost(@PathVariable(value = "postId") Long postId,
                            @Valid @ModelAttribute("postDto") PostDto postDto,
                            BindingResult result, Model model) {
@@ -108,7 +107,7 @@ public class PostController {
         return "redirect:/post/" + postId;
     }
 
-    @GetMapping("delete/{postId}")
+    @GetMapping("post-delete/{postId}")
     public String delete(@PathVariable(value = "postId") Long postId, Model model) {
         final Post post = postService.getPost(postId).orElseThrow();
 
@@ -120,6 +119,6 @@ public class PostController {
         }
 
         postService.deletePost(post);
-        return "redirect:/post/";
+        return "redirect:/posts/";
     }
 }

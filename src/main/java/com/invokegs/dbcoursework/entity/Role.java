@@ -11,8 +11,12 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
+    private String displayName;
+    @Column(nullable = false)
+    private Integer priority;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
@@ -28,18 +32,24 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    public Role(String name) {
+    public Role(String name, String displayName, int priority) {
         this.name = name;
+        this.displayName = displayName;
+        this.priority = priority;
     }
 
-    public Role(String name, Collection<Privilege> privileges) {
+    public Role(String name, String displayName, int priority, Collection<Privilege> privileges) {
         this.name = name;
+        this.displayName = displayName;
+        this.priority = priority;
         this.privileges = privileges;
     }
 
-    public Role(Long id, String name, Collection<User> users, Collection<Privilege> privileges) {
+    public Role(Long id, String name, String displayName, int priority, Collection<User> users, Collection<Privilege> privileges) {
         this.id = id;
         this.name = name;
+        this.displayName = displayName;
+        this.priority = priority;
         this.users = users;
         this.privileges = privileges;
     }
@@ -63,6 +73,22 @@ public class Role implements GrantedAuthority {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Collection<User> getUsers() {

@@ -11,38 +11,44 @@
 </head>
 
 <body class="vsc-initialized">
+<div th:replace="/fragments/navbar::navbar"></div>
+
 <div class="login-form">
     <form th:action="@{/register}" th:object="${user}" method="post">
         <h2 class="text-center">Registration</h2>
 
         <div class="form-group">
-            <input type="text" class="form-control mb-1" placeholder="Username" th:field="*{username}" required="required"/>
-            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</p>
+            <input type="text" class="form-control mb-1" placeholder="Username" th:field="*{username}"
+                   aria-describedby="usernameInputHelp" required="required"/>
+            <div id="usernameInputHelp" class="form-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control mb-1" placeholder="Email" th:field="*{email}" required="required"/>
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+            <input type="text" class="form-control mb-1" placeholder="Email" th:field="*{email}"
+                   aria-describedby="emailInputHelp" required="required"/>
+            <div id="emailInputHelp" class="form-text" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
 
         <div class="form-group">
             <input type="password" class="form-control mb-1" placeholder="Password" th:field="*{password}"
-                   required="required"/>
-            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                   aria-describedby="passwordInputHelp" required="required"/>
+            <div id="passwordInputHelp" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control mb-1" placeholder="Confirm password"
-                   th:field="*{confirmPassword}" required="required"/>
-            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Password Error</p>
+            <input type="password" class="form-control mb-1" placeholder="Confirm password" th:field="*{confirmPassword}"
+                   aria-describedby="confirmPasswordInputHelp" required="required"/>
+            <div id="confirmPasswordInputHelp" class="form-text" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control mb-1" placeholder="First name" th:field="*{firstName}"/>
-            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>
+            <input type="text" class="form-control mb-1" placeholder="First name" th:field="*{firstName}"
+                   aria-describedby="firstNameInputHelp"/>
+            <div id="firstNameInputHelp" class="form-text" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control mb-1" placeholder="Last name" th:field="*{lastName}"/>
-            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</p>
+            <input type="text" class="form-control mb-1" placeholder="Last name" th:field="*{lastName}"
+                   aria-describedby="lastNameInputHelp"/>
+            <div id="lastNameInputHelp" class="form-text" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
         </div>
 
         <div class="form-group">

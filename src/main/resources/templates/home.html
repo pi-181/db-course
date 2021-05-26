@@ -7,9 +7,17 @@
     <title>Home</title>
 </head>
 <body>
-
-<h1>Its home!</h1>
-Open <a th:href="@{/profile}">profile</a><br>
-Open <a th:href="@{/post}">posts</a>
+<div th:replace="/fragments/navbar::navbar"></div>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Home</h1>
+        <p class="lead">Simple news website engine, written in Java using Spring Framework! :)</p>
+        <hr class="my-4">
+        <p>You can check out already created posts</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" th:href="@{/posts/}" role="button">Posts</a>
+        </p>
+    </div>
+</div>
 </body>
 </html>

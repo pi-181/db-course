@@ -7,29 +7,26 @@
     <title>Post : View</title>
 </head>
 <body>
+<div th:replace="/fragments/navbar::navbar"></div>
 
-<div>
-    Back to <a th:href="@{/post}">posts</a> <br>
+
+<div class="container">
+    <h1>Post</h1>
+    <div class="card mt-1">
+        <div class="card-header"><a th:href="${'/post/' + post.id}" th:text="${post.title}"></a></div>
+        <div class="card-body" th:id="'post-content'">
+            <label><textarea style="display:none;" th:text="${post.content}" hidden="hidden"></textarea></label>
+        </div>
+        <div class="card-footer text-muted">
+            Author: <a th:href="${'/profile/' + post.author.id}" th:text="${post.author.username}"></a>
+            <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
+        </div>
+    </div>
+    <div class="mt-2">
+        <a class="btn btn-primary" th:href="${'/post-edit/' + id}">Edit</a>
+        <a class="btn btn-danger" th:href="${'/post-delete/' + id}">Delete</a>
+    </div>
 </div>
-
-<h1>Post</h1>
-
-<hr>
-<center><p th:remove="tag" th:text="${post.title}"></p></center>
-<br><br>
-<div th:id="'post-content'" style="max-width: 98%">
-    <label>
-        <textarea style="display:none;" th:text="${post.content}">### Hello world!</textarea>
-    </label>
-</div>
-<br>
-<center><span>
-        Author: <p th:remove="tag" th:utext="${post.author.username}"></p>
-        <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
-    </span></center>
-<hr/>
-<a th:href="${'/post/edit/' + id}">Edit</a>
-<a th:href="${'/post/delete/' + id}">Delete</a>
 
 <script type="text/javascript">$(function () {
     editormd.markdownToHTML("post-content", {});

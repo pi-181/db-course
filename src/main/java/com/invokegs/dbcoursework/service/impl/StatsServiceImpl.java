@@ -1,6 +1,6 @@
 package com.invokegs.dbcoursework.service.impl;
 
-import com.invokegs.dbcoursework.dto.MonthPostsDto;
+import com.invokegs.dbcoursework.entity.MonthPosts;
 import com.invokegs.dbcoursework.entity.PostCount;
 import com.invokegs.dbcoursework.repository.MonthPostsRepository;
 import com.invokegs.dbcoursework.repository.PostCountRepository;
@@ -29,7 +29,7 @@ public class StatsServiceImpl implements StatsService {
 
     @NonNull
     @Override
-    public List<MonthPostsDto> getMonthPosts() {
+    public List<MonthPosts> getMonthPosts() {
         return monthPostsRepository.getMonths();
     }
 }

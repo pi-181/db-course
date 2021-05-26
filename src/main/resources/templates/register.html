@@ -3,9 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org"
 >
-<head th:replace="/fragments/head::head(~{::title}, ~{::#insertion}, ~{})">
+<head th:replace="/fragments/head::head(~{::title}, ~{::#frag_head_link}, ~{})">
     <title>Log Registration</title>
-    <th:block th:remove="tag" id="insertion">
+    <th:block th:remove="tag" id="frag_head_link">
         <link rel="stylesheet" th:href="@{/webs/styles/auth.css}">
     </th:block>
 </head>

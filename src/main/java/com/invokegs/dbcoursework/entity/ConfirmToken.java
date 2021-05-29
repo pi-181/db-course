@@ -13,6 +13,7 @@ public class ConfirmToken {
     private String token;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createdDate;
 
     @OneToOne(fetch = FetchType.EAGER)

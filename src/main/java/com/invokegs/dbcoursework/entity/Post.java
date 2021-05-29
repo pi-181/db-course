@@ -14,16 +14,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(columnDefinition = "varchar(50)")
+    @Column(columnDefinition = "varchar(50)", nullable = false)
     private String title;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String content;
 
     @ManyToOne(optional = false)
     private User author;
 
-    @Column(name = "creation_time")
+    @Column(name = "creation_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
 

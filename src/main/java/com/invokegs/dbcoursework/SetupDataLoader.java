@@ -133,6 +133,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                 WHERE p.creation_time > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year'
                 GROUP BY 1
                 ORDER BY month
+                LIMIT 12
                 """.replace("schema_name", schema)).executeUpdate();
 
         loaded = true;

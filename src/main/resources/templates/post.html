@@ -24,7 +24,9 @@
     </div>
     <div class="mt-2">
         <a class="btn btn-primary" th:href="${'/post-edit/' + id}">Edit</a>
-        <a class="btn btn-danger" th:href="${'/post-delete/' + id}">Delete</a>
+        <form th:action="${'/post-delete/' + id}" method="post" style="display: inline;">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
     </div>
 </div>
 

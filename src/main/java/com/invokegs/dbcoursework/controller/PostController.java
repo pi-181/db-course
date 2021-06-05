@@ -83,7 +83,7 @@ public class PostController {
         return "redirect:/post/" + postId;
     }
 
-    @GetMapping("post-delete/{postId}")
+    @PostMapping("post-delete/{postId}")
     @PreAuthorize("hasAuthority('DELETE_ANY_PRIVILEGE') || (hasAuthority('DELETE_PRIVILEGE') && isPostAuthor(#postId))")
     public String delete(@PathVariable(value = "postId") Long postId, Model model) {
         postService.deletePost(postService.getPost(postId).orElseThrow());

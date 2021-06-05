@@ -53,10 +53,9 @@ public class RegisterController {
                     user.getFirstName(),
                     user.getLastName()
             );
-            userService.registerUser(u);
 
             final String url = request.getRequestURL().toString();
-            userService.sendRegistrationConfirmation(u, url + "/confirm/");
+            userService.registerUser(u, url + "/confirm/");
 
             return "redirect:/login";
         } catch (RegistrationInvalidDataException e) {

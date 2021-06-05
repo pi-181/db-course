@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void registerUser(@NonNull User user) throws RegistrationInvalidDataException {
+    public void registerUser(@NonNull User user, String confirmUrl) throws RegistrationInvalidDataException {
         final User userDb = repository.findUserByUsernameOrEmail(user.getUsername(), user.getEmail());
 
         if (userDb != null) {
@@ -45,18 +45,22 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         repository.save(user);
+
+        sendRegistrationConfirmation(user, confirmUrl);
     }
 
     @Override
-    public void sendRegistrationConfirmation(User user, String conformationUrl) {
+    public void sendRegistrationConfirmation(User user, String confirmUrl) {
         final var token = UUID.randomUUID().toString();
         tokenRepository.save(new ConfirmToken(token, user));
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());
         email.setSubject("Confirm Registration");
-        email.setText("To confirm registration click on link: " + conformationUrl + token);
-        senderService.sendEmail(email);
+        email.setText("To confirm registration click on link: " + confirmUrl + token);
+
+        senderService.sendEmailAsync(email)
+                .thenRun(() -> tokenRepository.save(new ConfirmToken(token, user)));
     }
 
     @Override

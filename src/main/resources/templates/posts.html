@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <ul class="pagination" th:with="pageNum=${posts.number + 1}">
+    <ul class="pagination mt-1 d-flex justify-content-center" th:with="pageNum=${posts.number + 1}">
         <li th:class="${'page-item ' + (posts.isFirst() ? 'disabled' : '')}">
             <a class="page-link" th:href="${'/posts/' + (pageNum - 1)}" tabindex="-1">Previous</a></li>
 

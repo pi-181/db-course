@@ -39,7 +39,8 @@ public class RegisterController {
         model.addAttribute("user", user);
 
         if (!Objects.equals(user.getConfirmPassword(), user.getPassword()))
-            result.rejectValue("confirmPassword", "error.user.passwordNotMatch", "пароли не совпадают");
+            result.rejectValue("confirmPassword", "error.user.passwordNotMatch",
+                    "пароли не совпадают");
 
         if (result.hasErrors())
             return "register";

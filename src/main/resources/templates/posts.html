@@ -25,6 +25,33 @@
             <p th:text="'Creation time: ' + ${#dates.format(post.creationTime, 'dd MMM yyyy HH:mm')}"></p>
         </div>
     </div>
+
+    <ul class="pagination" th:with="pageNum=${posts.number + 1}">
+        <li th:class="${'page-item ' + (posts.isFirst() ? 'disabled' : '')}">
+            <a class="page-link" th:href="${'/posts/' + (pageNum - 1)}" tabindex="-1">Previous</a></li>
+
+        <li class="page-item" th:if="${pageNum - 2 > 0}">
+            <a class="page-link" th:href="'/posts/' + ${pageNum - 2}" th:text="${pageNum - 2}"></a>
+        </li>
+
+        <li class="page-item" th:if="${!posts.isFirst()}">
+            <a class="page-link" th:href="'/posts/' + ${pageNum - 1}" th:text="${pageNum - 1}"></a>
+        </li>
+
+        <li class="page-item active"><a class="page-link" th:href="${'/posts/' + pageNum}" th:text="${pageNum}">
+            <span class="sr-only">(current)</span></a></li>
+
+        <li class="page-item"  th:if="${!posts.isLast()}">
+            <a class="page-link" th:href="'/posts/' + ${pageNum + 1}" th:text="${pageNum + 1}"></a>
+        </li>
+
+        <li class="page-item"  th:if="${(pageNum + 2) <= posts.totalPages}">
+            <a class="page-link" th:href="'/posts/' + ${pageNum + 2}" th:text="${pageNum + 2}"></a>
+        </li>
+
+        <li th:class="${'page-item ' + (posts.isLast() ? 'disabled' : '')}">
+            <a class="page-link" th:href="${'/posts/' + (pageNum + 1)}">Next</a></li>
+    </ul>
 </div>
 
 <script type="text/javascript" th:each="post : ${posts}">$(function () {

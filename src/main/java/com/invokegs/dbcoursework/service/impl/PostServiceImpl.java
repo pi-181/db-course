@@ -3,6 +3,8 @@ package com.invokegs.dbcoursework.service.impl;
 import com.invokegs.dbcoursework.entity.Post;
 import com.invokegs.dbcoursework.repository.PostRepository;
 import com.invokegs.dbcoursework.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,8 @@ public class PostServiceImpl implements PostService {
 
     @NonNull
     @Override
-    public Collection<Post> getPosts() {
-        return repository.findAllByOrderByCreationTimeDesc();
+    public Page<Post> getPosts(int page) {
+        return repository.findAllByOrderByCreationTimeDesc(PageRequest.of(page, 5));
     }
 
     @Override

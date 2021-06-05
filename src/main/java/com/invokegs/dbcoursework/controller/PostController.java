@@ -22,7 +22,13 @@ public class PostController {
 
     @GetMapping("posts")
     public String index(Model model) {
-        model.addAttribute("posts", postService.getPosts());
+        model.addAttribute("posts", postService.getPosts(1));
+        return "posts";
+    }
+
+    @GetMapping("posts/{page}")
+    public String index(@PathVariable("page") int page, Model model) {
+        model.addAttribute("posts", postService.getPosts(page - 1));
         return "posts";
     }
 

@@ -22,7 +22,7 @@ public class PostController {
 
     @GetMapping("posts")
     public String index(Model model) {
-        model.addAttribute("posts", postService.getPosts(1));
+        model.addAttribute("posts", postService.getPosts(0));
         return "posts";
     }
 

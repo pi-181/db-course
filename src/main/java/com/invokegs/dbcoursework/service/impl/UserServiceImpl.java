@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void sendRegistrationConfirmation(User user, String confirmUrl) {
         final var token = UUID.randomUUID().toString();
-        tokenRepository.save(new ConfirmToken(token, user));
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());

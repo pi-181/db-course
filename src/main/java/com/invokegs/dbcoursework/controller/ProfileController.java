@@ -1,7 +1,7 @@
 package com.invokegs.dbcoursework.controller;
 
 import com.invokegs.dbcoursework.entity.Role;
-import com.invokegs.dbcoursework.entity.SecurityUserDetails;
+import com.invokegs.dbcoursework.security.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @Controller("profile")
 @RequestMapping("/profile")

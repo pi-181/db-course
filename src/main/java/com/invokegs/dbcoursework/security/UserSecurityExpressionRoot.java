@@ -1,7 +1,5 @@
-package com.invokegs.dbcoursework.expression;
+package com.invokegs.dbcoursework.security;
 
-import com.invokegs.dbcoursework.entity.Post;
-import com.invokegs.dbcoursework.entity.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
 import com.invokegs.dbcoursework.service.PostService;
 import org.springframework.security.access.expression.SecurityExpressionRoot;

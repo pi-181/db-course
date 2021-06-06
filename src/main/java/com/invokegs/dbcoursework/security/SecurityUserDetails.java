@@ -1,5 +1,6 @@
-package com.invokegs.dbcoursework.entity;
+package com.invokegs.dbcoursework.security;
 
+import com.invokegs.dbcoursework.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 

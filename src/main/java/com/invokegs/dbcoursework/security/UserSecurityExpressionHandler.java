@@ -1,4 +1,4 @@
-package com.invokegs.dbcoursework.expression;
+package com.invokegs.dbcoursework.security;
 
 import com.invokegs.dbcoursework.service.PostService;
 import org.aopalliance.intercept.MethodInvocation;

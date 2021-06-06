@@ -2,7 +2,7 @@ package com.invokegs.dbcoursework.controller;
 
 import com.invokegs.dbcoursework.dto.PostDto;
 import com.invokegs.dbcoursework.entity.Post;
-import com.invokegs.dbcoursework.entity.SecurityUserDetails;
+import com.invokegs.dbcoursework.security.SecurityUserDetails;
 import com.invokegs.dbcoursework.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

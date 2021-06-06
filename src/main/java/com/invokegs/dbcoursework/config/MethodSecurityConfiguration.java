@@ -1,6 +1,6 @@
 package com.invokegs.dbcoursework.config;
 
-import com.invokegs.dbcoursework.expression.UserSecurityExpressionHandler;
+import com.invokegs.dbcoursework.security.UserSecurityExpressionHandler;
 import com.invokegs.dbcoursework.service.PostService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

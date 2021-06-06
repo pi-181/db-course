@@ -1,7 +1,7 @@
 package com.invokegs.dbcoursework.service.impl;
 
 import com.invokegs.dbcoursework.entity.Role;
-import com.invokegs.dbcoursework.entity.SecurityUserDetails;
+import com.invokegs.dbcoursework.security.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
 import com.invokegs.dbcoursework.repository.UserRepository;
 import org.springframework.context.annotation.Bean;

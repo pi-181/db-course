@@ -30,6 +30,6 @@ public class StatsServiceImpl implements StatsService {
     @NonNull
     @Override
     public List<MonthPosts> getMonthPosts() {
-        return monthPostsRepository.getMonths();
+        return monthPostsRepository.findAll();
     }
 }

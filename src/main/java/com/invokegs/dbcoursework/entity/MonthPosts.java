@@ -1,12 +1,18 @@
 package com.invokegs.dbcoursework.entity;
 
+import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.Subselect;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
+@Immutable
 @Table(name = "posts_by_months")
-public class MonthPosts {
+@Subselect("SELECT * FROM posts_by_months")
+public class MonthPosts implements Serializable {
     @Id
     private String month;
     private Integer count;

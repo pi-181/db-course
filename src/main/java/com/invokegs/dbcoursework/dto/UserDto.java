@@ -24,22 +24,13 @@ public class UserDto {
     )
     private String password;
 
-    @NotEmpty
-
-    @Size(
-            min = 5,
-            max = 32
-    )
-    private String confirmPassword;
-
     private String firstName;
     private String lastName;
 
-    public UserDto(String username, String email, String password, String confirmPassword, String firstName, String lastName) {
+    public UserDto(String username, String email, String password, String firstName, String lastName) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -69,14 +60,6 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {

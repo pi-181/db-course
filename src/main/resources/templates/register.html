@@ -14,7 +14,8 @@
 <div th:replace="/fragments/navbar::navbar"></div>
 
 <div class="login-form">
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/register}" th:object="${user}" method="post"
+          oninput='confirmPassword.setCustomValidity(password.value !== confirmPassword.value ? "Passwords do not match." : "")'>
         <h2 class="text-center">Registration</h2>
 
         <div class="form-group">
@@ -30,14 +31,12 @@
         </div>
 
         <div class="form-group">
-            <input type="password" class="form-control mb-1" placeholder="Password" th:field="*{password}"
+            <input type="password" class="form-control mb-1" placeholder="Password" name="password" th:field="*{password}"
                    aria-describedby="passwordInputHelp" required="required"/>
             <div id="passwordInputHelp" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control mb-1" placeholder="Confirm password" th:field="*{confirmPassword}"
-                   aria-describedby="confirmPasswordInputHelp" required="required"/>
-            <div id="confirmPasswordInputHelp" class="form-text" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+            <input type="password" class="form-control mb-1" placeholder="Confirm password" name="confirmPassword" required="required"/>
         </div>
 
         <div class="form-group">

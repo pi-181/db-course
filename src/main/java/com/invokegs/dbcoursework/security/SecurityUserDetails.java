@@ -2,10 +2,8 @@ package com.invokegs.dbcoursework.security;
 
 import com.invokegs.dbcoursework.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Collection;
-import java.util.Optional;
 
 public class SecurityUserDetails extends org.springframework.security.core.userdetails.User {
     private final User user;
@@ -26,15 +24,5 @@ public class SecurityUserDetails extends org.springframework.security.core.userd
 
     public boolean hasAuthority(String authority) {
         return getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(authority));
-    }
-
-    public static Optional<SecurityUserDetails> getSessionUserDetails() {
-        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (details instanceof SecurityUserDetails y) {
-            return Optional.of(y);
-        }
-
-        return Optional.empty();
     }
 }

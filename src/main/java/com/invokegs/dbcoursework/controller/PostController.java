@@ -5,6 +5,7 @@ import com.invokegs.dbcoursework.entity.Post;
 import com.invokegs.dbcoursework.security.SecurityUserDetails;
 import com.invokegs.dbcoursework.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,15 +42,15 @@ public class PostController {
 
     @PostMapping("post-create")
     @PreAuthorize("hasAuthority('CREATE_PRIVILEGE')")
-    public String create(@Valid @ModelAttribute("postDto") PostDto dto, BindingResult result, Model model) {
+    public String create(
+            @AuthenticationPrincipal SecurityUserDetails details,
+            @Valid @ModelAttribute("postDto") PostDto dto, BindingResult result, Model model) {
         model.addAttribute("postDto", dto);
         if (result.hasErrors()) {
             return "create-post";
         }
 
-        final SecurityUserDetails details = SecurityUserDetails.getSessionUserDetails().orElseThrow();
         postService.savePost(new Post(dto.getTitle(), dto.getContent(), details.getUser()));
-
         return "redirect:/posts/";
     }
 

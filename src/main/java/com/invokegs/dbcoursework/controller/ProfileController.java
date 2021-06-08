@@ -3,6 +3,7 @@ package com.invokegs.dbcoursework.controller;
 import com.invokegs.dbcoursework.entity.Role;
 import com.invokegs.dbcoursework.security.SecurityUserDetails;
 import com.invokegs.dbcoursework.entity.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,7 @@ import java.util.Comparator;
 @RequestMapping("/profile")
 public class ProfileController {
     @GetMapping
-    public String index(Model model) {
-        final SecurityUserDetails details = SecurityUserDetails.getSessionUserDetails().orElseThrow();
+    public String index(@AuthenticationPrincipal SecurityUserDetails details, Model model) {
         return "redirect:/profile/" + details.getUser().getId();
     }
 

@@ -4,6 +4,7 @@ import com.invokegs.dbcoursework.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +18,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> sendEmailAsync(SimpleMailMessage email) {
         javaMailSender.send(email);

@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .userDetailsService(userDetailsService)
                     .rememberMeParameter("remember-me")
                     .rememberMeCookieName("remember")
-                    .tokenValiditySeconds(1209600)
+                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(14))
                     .and()
                 .logout()
                     .permitAll();

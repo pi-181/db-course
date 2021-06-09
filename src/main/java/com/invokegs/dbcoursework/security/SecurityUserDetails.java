@@ -1,25 +1,24 @@
 package com.invokegs.dbcoursework.security;
 
-import com.invokegs.dbcoursework.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
 public class SecurityUserDetails extends org.springframework.security.core.userdetails.User {
-    private final User user;
+    private final Long userId;
 
-    public SecurityUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, User user) {
+    public SecurityUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, Long userId) {
         super(username, password, authorities);
-        this.user = user;
+        this.userId = userId;
     }
 
-    public SecurityUserDetails(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, User user) {
+    public SecurityUserDetails(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, Long userId) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-        this.user = user;
+        this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     public boolean hasAuthority(String authority) {

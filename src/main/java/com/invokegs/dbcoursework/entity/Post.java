@@ -74,7 +74,11 @@ public class Post {
     }
 
     public boolean isAuthor(User user) {
-        return getAuthor().getId().equals(user.getId());
+        return isAuthor(user.getId());
+    }
+
+    public boolean isAuthor(Long userId) {
+        return getAuthor().getId().equals(userId);
     }
 
     public void setAuthor(User author) {

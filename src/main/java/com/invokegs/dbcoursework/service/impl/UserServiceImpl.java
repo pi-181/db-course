@@ -32,8 +32,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User findByUsername(@NonNull String username) {
         return repository.findUserByUsername(username);
+    }
+
+    @Override
+    public User findById(@NonNull Long userId) {
+        return repository.findById(userId).orElse(null);
     }
 
     @Override

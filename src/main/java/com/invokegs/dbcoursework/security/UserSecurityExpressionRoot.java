@@ -24,8 +24,10 @@ public class UserSecurityExpressionRoot extends SecurityExpressionRoot implement
     }
 
     public boolean isPostAuthor(Long postId) {
-        final User user = ((SecurityUserDetails) getPrincipal()).getUser();
-        return postService.getPost(postId).map(p -> p.isAuthor(user)).orElse(false);
+        final Long userId = ((SecurityUserDetails) getPrincipal()).getUserId();
+        return postService.getPost(postId)
+                .map(p -> p.isAuthor(userId))
+                .orElse(false);
     }
 
     @Override

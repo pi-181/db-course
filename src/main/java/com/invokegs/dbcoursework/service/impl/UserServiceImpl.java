@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        return repository.findUserByUsername(username);
+    }
+
+    @Override
     @Transactional
     public void registerUser(@NonNull User user, String confirmUrl) throws RegistrationInvalidDataException {
         final User userDb = repository.findUserByUsernameOrEmail(user.getUsername(), user.getEmail());

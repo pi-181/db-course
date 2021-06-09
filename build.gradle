@@ -30,6 +30,7 @@ dependencies {
     implementation group: 'org.webjars', name: 'webjars-locator', version: '0.40'
 
     // backend dependencies
+    implementation 'org.springframework.session:spring-session-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-security'

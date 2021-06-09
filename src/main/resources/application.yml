@@ -6,6 +6,11 @@ server:
         name: "SESSION"
 
 spring:
+  session:
+    store-type: "jdbc"
+    jdbc:
+      initialize-schema: "always"
+      table-name: "SPRING_SESSION"
   datasource:
     platform: "postgres"
     url: 'jdbc:postgresql://${DB_ADDRESS}/${DB_NAME}?currentSchema=${DB_DEFAULT_SCHEMA:db_course}'

@@ -6,14 +6,13 @@ import com.invokegs.dbcoursework.exception.RegistrationInvalidDataException;
 import com.invokegs.dbcoursework.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Objects;
 
 @Controller("register")
 @RequestMapping("/register")

@@ -7,7 +7,7 @@ import com.invokegs.dbcoursework.service.RoleService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @Service("roleService")
